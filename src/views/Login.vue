@@ -15,7 +15,7 @@
                         </v-layout>
                         <v-card-subtitle class="caption subtitulo-registro"><b>Recuerda:</b> Los datos de ingreso son de mucha importancia, no los pierdas!</v-card-subtitle>
                         
-                        <v-form> 
+                        <v-form @submit.prevent="login"> 
                             <v-card-text>
                                 <v-text-field v-model="Login.email" :rules="[rules.required, rules.email]" dense label="Ingrese E-mail" outlined ></v-text-field> 
                                 <v-text-field :rules="[rules.required, rules.min]" dense label="Contraseña" outlined 
@@ -26,13 +26,14 @@
                             </v-card-text>                               
                             
                             <v-card-actions>
-                                <v-btn block class="success white--text" @click.prevent="">
+                                <v-btn block class="success white--text" type="submit">
                                     Iniciar sesion
                                 </v-btn>
                             </v-card-actions>
                             <div>
                                 No tienes una cuenta? <a text class="blue--text" @click="toggleRegistro">Registrate aqui!</a>                                
-                            </div>           
+                            </div>     
+                            <span class="red--text">{{this.errores}}</span>      
                         </v-form>
                     </v-flex>
 
@@ -50,7 +51,7 @@
                         </v-layout> -->
                         <v-card-subtitle class="caption subtitulo-registro">Es gratis!, para poder realizar el alquiler del vehiculo, es necesario el registro</v-card-subtitle>
                         
-                        <v-form> 
+                        <v-form @submit.prevent="registrar"> 
                             <v-card-text>
                                 <v-text-field v-model="Registro.name" :rules="[rules.required]" dense label="Ingrese nombre" outlined></v-text-field>  
                                 <v-text-field v-model="Registro.lastname" :rules="[rules.required]" dense label="Ingrese apellido" outlined></v-text-field>   
@@ -80,7 +81,7 @@
                             </v-card-text>                               
                             
                             <v-card-actions>
-                                <v-btn block class="success white--text" @click.prevent="">
+                                <v-btn block class="success white--text" type="submit">
                                     Registrarse
                                 </v-btn>
                             </v-card-actions>
@@ -140,6 +141,10 @@
 
 
 <script>
+
+import firebase from 'firebase'
+
+
 export default {
    
     data(){
@@ -160,7 +165,7 @@ export default {
                 password: ''
 
             },
-            errores:[],
+            errores:'',
             rules:{
                 required: value => !!value || 'Requerido',
                 min: v => v.length >= 8  || 'Minimo 8 caracteres',
@@ -180,7 +185,40 @@ export default {
         toggleLogin(){
             document.querySelector('.display-login').style.display = 'block'
             document.querySelector('.display-registro').style.display = 'none'
-        },       
+        },    
+        
+        registrar(){
+            if(this.Registro.name && this.Registro.lastname && this.Registro.email && this.Registro.password && this.Registro.password_confirm){
+                firebase.auth().createUserWithEmailAndPassword(this.Registro.email, this.Registro.password)
+                .then(user=>{
+                    console.log(user)
+                }).catch(e=>{
+                    console.log(e.message)
+                    this.errores = e.message
+                })
+                console.log('registrando...')
+            }
+            
+            
+        },
+
+        login(){
+            if(this.Login.email && this.Login.password){
+                console.log(this.Login.email)
+                console.log(this.Login.password)
+                firebase.auth().signInWithEmailAndPassword(this.Login.email, this.Login.password)
+                .then(user=>{
+                    this.$router.push({name:'home'})
+                    console.log(user)
+                }).catch(e=>{
+                    this.errores = e.message
+                    console.log(e.message)
+                })
+            }else{
+                this.errores = 'Por favor, rellenar los campos'
+            }
+            
+        }
        
     },
     

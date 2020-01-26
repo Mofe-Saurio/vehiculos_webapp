@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-
+import firebase from 'firebase'
 
 Vue.use(VueRouter)
 
@@ -21,6 +21,15 @@ const routes = [
   },
 
   {
+    path: '/reserva',
+    name: 'reserva',    
+    component: () => import(/* webpackChunkName: "about" */ '../views/Reserva.vue'),
+    meta:{
+      requiresAuth: true
+    }
+  },
+
+  {
     path: '/login',
     name: 'login',  
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
@@ -36,6 +45,21 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  if(to.matched.some(ruta => ruta.meta.requiresAuth)){
+    const user = firebase.auth().currentUser
+    if(user){
+      next()
+    }else{
+      next({
+        name: 'login'
+      })
+    }
+  }else{
+    next()
+  }
 })
 
 export default router

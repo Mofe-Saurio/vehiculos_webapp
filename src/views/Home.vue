@@ -79,7 +79,7 @@
                                           </v-list-item>
                                       </v-list>
                                       <v-card-actions>
-                                          <v-btn block class="white--text teal">Reservar</v-btn>
+                                          <v-btn block class="white--text teal" to="/reserva">Reservar</v-btn>
                                       </v-card-actions>
 
                                   </v-card>
