@@ -62,14 +62,13 @@
           </template>
           <v-list>
             <v-list-item>
-              <v-icon>mdi-account-box-outline</v-icon>
-              <a small text block to="/perfil">Perfil</a>
+             
+              <v-btn depressed small text block to="/perfil"> <v-icon color="teal">mdi-account</v-icon>Perfil</v-btn>
             </v-list-item>
             <v-spacer></v-spacer>
             <v-divider></v-divider>
             <v-list-item>
-              <v-icon>mdi-logout</v-icon>
-              <a small text block @click="logout">Cerrar sesion</a>
+              <v-btn depressed small text block @click="logout"> <v-icon color="red">mdi-logout</v-icon>Cerrar sesion</v-btn>
             </v-list-item>
           </v-list>
         </v-menu>

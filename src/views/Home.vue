@@ -98,11 +98,11 @@
                             </v-flex>
                           
                             <v-flex>
-                              <v-btn class="mr-1" fab dark  color="blue darken-3"  @click="formerPage">
+                              <v-btn class="mr-1" fab dark  color="error"  @click="formerPage">
                                 <v-icon>mdi-chevron-left</v-icon> 
                               </v-btn>
 
-                              <v-btn fab dark color="blue darken-3" class="ml-1" @click="nextPage">                          
+                              <v-btn fab dark color="error" class="ml-1" @click="nextPage">                          
                                 <v-icon>mdi-chevron-right</v-icon>
                               </v-btn>
                             </v-flex>                         
