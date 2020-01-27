@@ -48,7 +48,34 @@
       <v-toolbar-items class="hidden-sm-and-down navbar-list">
         <v-btn to='/test' color="white" text small="">Test</v-btn>
         <v-btn to='/about' color="white" text small="">Nosotros</v-btn>
-        <v-btn to='/login' color="white" text small>Iniciar sesion</v-btn>
+
+        <!-- Al iniciar sesion-->  
+        <v-menu offset-y v-if="user">
+          <template  v-slot:activator="{ on }">
+            <v-btn
+              color="teal"
+              small
+              v-on="on"
+            >
+              {{user.email}}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-icon>mdi-account-box-outline</v-icon>
+              <a small text block to="/perfil">Perfil</a>
+            </v-list-item>
+            <v-spacer></v-spacer>
+            <v-divider></v-divider>
+            <v-list-item>
+              <v-icon>mdi-logout</v-icon>
+              <a small text block @click="logout">Cerrar sesion</a>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <!-- Al no estar logeado-->
+        <v-btn to='/login' color="teal" small v-else>Iniciar sesion</v-btn> 
       </v-toolbar-items>
 
       <!-- Al minimizar el navegador-->
@@ -91,4 +118,36 @@
     </v-app-bar>
 </template>
 
+<script>
+import firebase from 'firebase/app'
+export default {
+  data(){
+    return{
+      user: null,
 
+    }  
+  },
+
+  methods:{
+    logout(){
+      firebase.auth().signOut().then(()=>{        
+        this.$router.push('/')
+        this.$emit('emitting')
+      }).catch((e)=>{
+        console.log(e.message)
+      })
+    },
+
+  },
+  created(){
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        this.user = user
+      }else{
+        this.user = null
+      }
+    })
+  }
+  
+}
+</script>

@@ -1,8 +1,9 @@
 <template>
-  <v-app>
-    
+  <v-app>  
+    <!-- Snackbar -->   
+    <Snackbar @statusSnackbar="snackbar = false" :open="snackbar"/>
     <!-- Navbar -->   
-    <Navbar/>
+    <Navbar @emitting="snackbar = true"/>
     <v-content class="content-wrap">
       <router-view></router-view>
     </v-content>
@@ -14,18 +15,20 @@
 
 <script>
 import Navbar from '@/components/Navbar';
-
 import Footer from '@/components/Footer';
+import Snackbar from '@/components/Snackbar';
 
 export default {
   name: 'App',
 
   components: {
-    Navbar, Footer
+    Navbar, Footer, Snackbar
   },
 
-  data: () => ({
-    //
+  data: () => ({    
+    multiLine: true,
+    snackbar: false,
+    text: 'I\'m a multi-line snackbar.',
   }),
 };
 </script>

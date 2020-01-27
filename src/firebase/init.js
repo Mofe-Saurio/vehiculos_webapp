@@ -1,9 +1,9 @@
 
  import firebase from 'firebase'
- //import firestore from 'firebase/firestore'
+ import 'firebase/firestore'
 
 
- const firebaseConfig = {
+ var config = {
     apiKey: "AIzaSyBZTbLh7T4yD-M0pkC0zjBXZ4vxbM3EcHk",
     authDomain: "alquiler-vehiculos-c139a.firebaseapp.com",
     databaseURL: "https://alquiler-vehiculos-c139a.firebaseio.com",
@@ -14,6 +14,7 @@
     measurementId: "G-RM5X369G66"
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(config)
+const db = firebase.firestore()
 
-export default firebaseApp
+export default db

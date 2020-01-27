@@ -81,13 +81,14 @@
                             </v-card-text>                               
                             
                             <v-card-actions>
-                                <v-btn block class="success white--text" type="submit">
+                                <v-btn block class="success white--text" type="submit" :loading="loading">
                                     Registrarse
                                 </v-btn>
                             </v-card-actions>
                             <div>
-                                Ya tiene una cuenta? <a text class="blue--text" @click="toggleLogin">Inicia sesion</a>                                
-                            </div>           
+                                Ya tiene una cuenta? <a text class="blue--text" @click="toggleLogin">Inicia sesion</a>                                                              
+                            </div>        
+                            <span class="red--text">{{this.errores}}</span>    
                         </v-form>
                     </v-flex>
 
@@ -143,6 +144,7 @@
 <script>
 
 import firebase from 'firebase'
+import db from '../firebase/init'
 
 
 export default {
@@ -152,6 +154,7 @@ export default {
             
             dialog: false,
             show: false,
+            loading: false,
             Registro:{
                 name: '',
                 lastname: '',
@@ -188,11 +191,31 @@ export default {
         },    
         
         registrar(){
+            var user = null
             if(this.Registro.name && this.Registro.lastname && this.Registro.email && this.Registro.password && this.Registro.password_confirm){
+                this.loading = true
                 firebase.auth().createUserWithEmailAndPassword(this.Registro.email, this.Registro.password)
-                .then(user=>{
-                    console.log(user)
+                .then(()=>{
+                    const usuario = {
+                        nombre: this.Registro.name,
+                        apellido: this.Registro.lastname
+                    }
+                    db.collection('usuarios').add(usuario).then(()=>{
+                        console.log('add to db')
+                        user = firebase.auth().currentUser                    
+                        user.updateProfile({
+                            displayName: this.Registro.name + ' ' +this.Registro.lastname
+                        }).then(()=>{
+                            console.log('Success')
+                            this.loading = false
+                            this.$router.push({name:'home'})
+                        }).catch((e)=>{
+                            this.errores = e.message
+                            console.log(e.message)
+                        })
+                    })    
                 }).catch(e=>{
+                    this.loading = false
                     console.log(e.message)
                     this.errores = e.message
                 })
@@ -203,18 +226,23 @@ export default {
         },
 
         login(){
-            if(this.Login.email && this.Login.password){
-                console.log(this.Login.email)
-                console.log(this.Login.password)
+            if(this.Login.email && this.Login.password){    
+                this.loading = true            
                 firebase.auth().signInWithEmailAndPassword(this.Login.email, this.Login.password)
                 .then(user=>{
-                    this.$router.push({name:'home'})
-                    console.log(user)
+                    if(user){
+                        this.Login.email = ''
+                        this.Login.password = ''
+                        this.loading = false
+                        this.$router.push({name:'home'})
+                    }  
                 }).catch(e=>{
+                    this.loading = false 
                     this.errores = e.message
                     console.log(e.message)
                 })
             }else{
+                this.loading = false 
                 this.errores = 'Por favor, rellenar los campos'
             }
             

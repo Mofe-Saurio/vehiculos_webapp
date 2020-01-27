@@ -121,7 +121,9 @@
 </template>
 
 <script>
+import db from '../firebase/init'
 import Filtro from '@/components/Filtro';
+
 export default {
   components:{
     Filtro
@@ -144,119 +146,7 @@ export default {
           'Color',
           'Precio'        
         ],
-        items: [
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Automatico',
-            gps: 'No',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 25
-            
-          },
-          {
-            nombre: 'Hiundai i30',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'azul',
-            precio: 7
-          },
-          {
-            nombre: 'Hiundai Santa Fe',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 15
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'No',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'verde',
-            precio: 30
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 30
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 30
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 1
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 2
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 3
-          },
-          {
-            nombre: 'Hiundai i20',
-            marca: 'Hyundai',
-            tipo: 'Manual',
-            gps: 'Si',
-            foto: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-            pasajeros: 5,
-            kilometraje: 3000,
-            color: 'rojo',
-            precio: 37
-          },
-        ],
+        items: [],
       }
     },
     computed: {
@@ -274,10 +164,23 @@ export default {
       formerPage () {
         if (this.page - 1 >= 1) this.page -= 1
       },
-      updateItemsPerPage (number) {
-        this.itemsPerPage = number
-      },
+     
     },
+    created(){
+      db.collection('autos').onSnapshot(res=>{
+        const changes = res.docChanges()
+
+        changes.forEach(change =>{
+          if (change.type === 'added') {
+            this.items.push({
+              ...change.doc.data(),
+              id:change.doc.id
+            })
+            
+          }
+        })
+      })
+    }
 
 
   
