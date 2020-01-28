@@ -21,7 +21,7 @@ const routes = [
   },
 
   {
-    path: '/reserva',
+    path: '/reserva/:id',
     name: 'reserva',    
     component: () => import(/* webpackChunkName: "about" */ '../views/Reserva.vue'),
     meta:{

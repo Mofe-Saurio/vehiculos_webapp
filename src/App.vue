@@ -35,9 +35,12 @@ export default {
 
 <style lang="scss">
  .v-application{
-   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;
-   font-weight: 400px !important;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  
+   line-height: 1.231 !important;
+   font-size: 16px !important;
  }
+
  .v-card__subtitle, .v-card__text, .v-card__title{
    padding: 10px !important;
  }

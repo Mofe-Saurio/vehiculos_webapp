@@ -79,7 +79,7 @@
                                           </v-list-item>
                                       </v-list>
                                       <v-card-actions>
-                                          <v-btn block class="white--text teal" to="/reserva">Reservar</v-btn>
+                                          <v-btn block class="white--text teal" :to="{ name: 'reserva', params: { id: item.id } }">Reservar</v-btn>
                                       </v-card-actions>
 
                                   </v-card>
@@ -168,6 +168,7 @@ export default {
     },
     created(){
       db.collection('autos').onSnapshot(res=>{
+       
         const changes = res.docChanges()
 
         changes.forEach(change =>{
@@ -175,8 +176,9 @@ export default {
             this.items.push({
               ...change.doc.data(),
               id:change.doc.id
+              
             })
-            
+            console.log(this.items)
           }
         })
       })

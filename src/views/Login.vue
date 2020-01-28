@@ -198,7 +198,11 @@ export default {
                 .then(()=>{
                     const usuario = {
                         nombre: this.Registro.name,
-                        apellido: this.Registro.lastname
+                        apellido: this.Registro.lastname, 
+                        sexo:'',                       
+                        correo: this.Registro.email,
+                        telefono:''
+
                     }
                     db.collection('usuarios').add(usuario).then(()=>{
                         console.log('add to db')
