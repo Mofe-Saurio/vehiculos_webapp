@@ -1,15 +1,24 @@
 <template>
-    <v-container class="my-5">
+    <v-container>
         <v-card class="mx-auto" max-width="1000">
             <v-layout wrap class="d-flex justify-center">
                     <!-- Detalles del vehiculo -->
 
-                    <v-flex xs12 md6 class="display-registro text-center my-9">
-                        <v-layout>
-                            <v-flex>
-                                <v-card-title class="title justify-center">Detalles de la reserva</v-card-title>
+                    <v-flex xs12 md6 class="display-registro text-center">
+                       <v-container>
+                           <v-layout>
+                            <v-flex class="d-flex align-center">
+                                <v-btn text to="/">
+                                    <v-icon color="teal">mdi-arrow-left-thick</v-icon>
+                                </v-btn>
+                                
+                            </v-flex>
+                            <v-flex md12>
+                                <v-card-title class="title">Detalles de la reserva</v-card-title>
                             </v-flex>                           
-                        </v-layout>                       
+                        </v-layout>      
+                       </v-container>
+                                         
                         <v-card-subtitle class="caption subtitulo-registro">Es gratis!, para poder realizar el alquiler del vehiculo, es necesario el registro</v-card-subtitle>
                        
                         <v-container>
@@ -137,38 +146,103 @@
                                     required    
                                 ></v-text-field>
 
-                                 <v-text-field
-                                    v-model="cedula"                                   
-                                    label="Cedula *"
-                                    required                                  
-                                    
-                                ></v-text-field>
-
-                                <v-menu
-                                    ref="menu1"
-                                    v-model="menu1"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="290px"
-                                >
-                                    <template v-slot:activator="{ on }">
+                                <v-layout>
+                                    <v-flex>
                                         <v-text-field
-                                        v-model="fecha_nacimiento"
-                                        label="Fecha nacimiento"
-                                        hint="MM/DD/YYYY format"                                       
-                                        readonly          
-                                        v-on="on"
-                                        
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker 
-                                        v-model="fecha_nacimiento" no-title @input="menu1 = false"                                      
-                                        
+                                            v-model="cedula"                                   
+                                            label="Cedula *"
+                                            required                                  
                                     
-                                    ></v-date-picker>
-                                </v-menu>
+                                        ></v-text-field>
+                                    </v-flex>
+                                    <v-flex></v-flex>
+                                    <v-flex>
+                                        <v-menu
+                                            ref="menu1"
+                                            v-model="menu1"
+                                            :close-on-content-click="false"
+                                            transition="scale-transition"
+                                            offset-y
+                                            max-width="290px"
+                                            min-width="290px"
+                                        >
+                                            <template v-slot:activator="{ on }">
+                                                <v-text-field
+                                                v-model="fecha_nacimiento"
+                                                label="Fecha nacimiento"
+                                                hint="MM/DD/YYYY format"                                       
+                                                readonly          
+                                                v-on="on"
+                                                
+                                                ></v-text-field>
+                                            </template>
+                                                <v-date-picker 
+                                                    v-model="fecha_nacimiento" no-title @input="menu1 = false" 
+                                                ></v-date-picker>
+                                        </v-menu>
+                                    </v-flex>
+                                </v-layout>
+
+
+                                <v-layout>
+                                    <v-flex>
+                                        <v-menu
+                                            ref="menu1"
+                                            v-model="menu2"
+                                            :close-on-content-click="false"
+                                            transition="scale-transition"
+                                            offset-y
+                                            max-width="290px"
+                                            min-width="290px"
+                                        >
+                                            <template v-slot:activator="{ on }">
+                                                <v-text-field
+                                                v-model="fecha_retiro"
+                                                label="Fecha de retiro"
+                                                hint="MM/DD/YYYY format"                                       
+                                                readonly          
+                                                v-on="on"
+                                                
+                                                ></v-text-field>
+                                            </template>
+                                                <v-date-picker 
+                                                    v-model="fecha_retiro" no-title @input="menu2 = false" 
+                                                ></v-date-picker>
+                                        </v-menu>
+                                    </v-flex>
+                                    <v-flex></v-flex>
+                                    <v-flex>
+                                        <v-menu
+                                            ref="menu1"
+                                            v-model="menu3"
+                                            :close-on-content-click="false"
+                                            transition="scale-transition"
+                                            offset-y
+                                            max-width="290px"
+                                            min-width="290px"
+                                        >
+                                            <template v-slot:activator="{ on }">
+                                                <v-text-field
+                                                v-model="fecha_devolucion"
+                                                label="Fecha de devolucion"
+                                                hint="MM/DD/YYYY format"                                       
+                                                readonly          
+                                                v-on="on"
+                                                
+                                                ></v-text-field>
+                                            </template>
+                                                <v-date-picker 
+                                                    v-model="fecha_devolucion" no-title @input="menu3 = false" 
+                                                ></v-date-picker>
+                                        </v-menu>
+                                    </v-flex>
+                                </v-layout>
+
+                                 
+
+                               
+                                
+
 
                                 <v-layout class="text-center">
                                     <v-flex>
@@ -190,13 +264,18 @@
                                 
 
                                 <v-card-actions>
-                                    <v-flex>
-                                        <v-btn @click="clear" color="error">Limpiar campos</v-btn>
-                                    </v-flex>
+                                    <v-layout wrap>
+                                        <v-flex>
+                                            <v-btn @click="clear" color="error" block class="my-2">Limpiar campos</v-btn>
+                                        </v-flex>
 
-                                    <v-flex>
-                                        <v-btn @click="submit" color="success">Completar reserva</v-btn>
-                                    </v-flex>
+                                        <v-spacer class="hidden-sm-and-down"></v-spacer>
+
+                                        <v-flex>
+                                            <v-btn @click="submit" color="success" block class="my-2">Completar reserva</v-btn>
+                                        </v-flex>
+                                    </v-layout>
+                                   
                                     
                                     
                                 </v-card-actions>       
@@ -235,10 +314,12 @@ export default {
     data: ()=> ({
         id: null, 
         currentUser:null,
-
-        checkbox: false,
-        select: null,           
         menu1: false,
+        menu2: false,
+        menu3: false,
+        checkbox: false,
+        select: null,          
+        
         date: new Date().toISOString().substr(0, 10),
 
         direccion: '',
@@ -302,8 +383,7 @@ export default {
                 
             })
         }).then(()=>{
-            console.log('Data Cargada')
-            console.log(this.items)
+            console.log('Data Cargada')            
                 
         }).catch(e=>{
             console.log(e.message)
@@ -321,7 +401,8 @@ export default {
         submit () {
             var num_reserva = ''
             num_reserva = Math.floor(Math.random() * (1000 - 5000) ) + 5000 + this.id.slice(0,8)
-           
+            
+
             if (this.direccion && this.cedula && this.fecha_nacimiento) {
                 this.errores = ''
 
@@ -334,6 +415,9 @@ export default {
                     id_carro: this.id,
                     id_cliente: this.currentUser.uid,
                     num_reserva: num_reserva,
+                    vehiculo: this.vehiculo[0].nombre + ' - ' + this.vehiculo[0].marca,
+                    precio: this.vehiculo[0].precio,
+                    status: true
                     
 
                 }
@@ -373,6 +457,8 @@ export default {
             this.direccion = ''
             this.cedula = ''
             this.fecha_nacimiento = null
+            this.fecha_devolucion = null
+            this.fecha_retiro = null
             this.checkbox = null            
         },
 

@@ -1,5 +1,5 @@
 {
-  "name": "vehiculos-app",
+  "name": "renta-vehiculos-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "firebase": "^7.7.0",
     "vee-validate": "^3.2.2",
     "vue": "^2.6.10",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.1.3",
     "vuetify": "^2.1.0"
   },

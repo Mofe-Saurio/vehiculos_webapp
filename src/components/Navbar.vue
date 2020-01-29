@@ -14,19 +14,19 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          
+          src="https://img.icons8.com/officel/40/000000/logo.png"
           transition="scale-transition"
-          width="40"
+         
         />
+        <v-btn to="/" class="hidden-sm-and-down">
+          <h1>New Pear Rental Car</h1>
+        </v-btn>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+         <v-btn to="/" class="hidden-md-and-up">
+          <h5>New Pear Rental Car</h5>
+        </v-btn>
+        
       </div>
       
       <v-divider
@@ -45,9 +45,8 @@
       <v-spacer></v-spacer>
 
       <!-- Area log in registro -->
-      <v-toolbar-items class="hidden-sm-and-down navbar-list">
-        <v-btn to='/test' color="white" text small="">Test</v-btn>
-        <v-btn to='/about' color="white" text small="">Nosotros</v-btn>
+      <v-toolbar-items class="hidden-sm-and-down navbar-list">       
+      
 
         <!-- Al iniciar sesion-->  
         <v-menu offset-y v-if="user">
@@ -88,29 +87,23 @@
             <v-list>
                 <v-list-item-group> 
                     <v-list-item>
-                    <v-btn  to='/' text small>Home</v-btn>
+                    <v-btn  to='/' text small>Vehiculos</v-btn>
                     </v-list-item>  
 
-                    <v-list-item>
-                    <v-btn  to='/about' text small>About</v-btn>  
-                    </v-list-item>   
+
+                    <div v-if="user">
+
+                      <v-list-item>
+                        <v-btn depressed small text block to="/perfil"> <v-icon color="teal">mdi-account</v-icon>Perfil</v-btn>
+                      </v-list-item>                                  
 
 
-                    <v-list-item>
-                    <v-btn  to='/test' text small>Test</v-btn>  
-                    </v-list-item>          
-                               
-                        
-                            
-                </v-list-item-group>
-                
-                
-                <v-list-item-group>             
-                    <v-list-item>
-                    <v-btn to='/login' small color="tea" outlined text>Iniciar sesion</v-btn>   
-                    </v-list-item>             
-                                        
-                </v-list-item-group>
+                      <v-list-item>
+                        <v-btn depressed small text block @click="logout"> <v-icon color="red">mdi-logout</v-icon>Cerrar sesion</v-btn>
+                      </v-list-item>     
+
+                    </div>                            
+                </v-list-item-group>                
             </v-list>
         </v-menu>   
 

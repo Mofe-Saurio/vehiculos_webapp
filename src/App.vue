@@ -4,7 +4,8 @@
     <Snackbar @statusSnackbar="snackbar = false" :open="snackbar"/>
     <!-- Navbar -->   
     <Navbar @emitting="snackbar = true"/>
-    <v-content class="content-wrap">
+    <Carousel/>
+    <v-content>
       <router-view></router-view>
     </v-content>
 
@@ -17,18 +18,18 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Snackbar from '@/components/Snackbar';
+import Carousel from '@/components/Carousel';
 
 export default {
   name: 'App',
 
   components: {
-    Navbar, Footer, Snackbar
+    Navbar, Footer, Snackbar, Carousel
   },
 
   data: () => ({    
     multiLine: true,
-    snackbar: false,
-    text: 'I\'m a multi-line snackbar.',
+    snackbar: false, 
   }),
 };
 </script>
@@ -44,9 +45,7 @@ export default {
  .v-card__subtitle, .v-card__text, .v-card__title{
    padding: 10px !important;
  }
- .v-application--wrap{
-   
- }
+ 
 
 
 </style>

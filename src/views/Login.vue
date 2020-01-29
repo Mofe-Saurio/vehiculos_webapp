@@ -1,5 +1,5 @@
 <template>
-    <v-container class="my-5">
+    <v-container>
         <v-card class="mx-auto" max-width="1000">
             <v-layout class="d-flex justify-center">
 
@@ -7,7 +7,7 @@
                     <v-flex md6 style="display:block" class="display-login text-center my-9">
                         <v-layout>
                             <v-flex>
-                                <v-card-title class="title justify-center">Vamos a iniciar sesion!</v-card-title>
+                                <v-card-title class="title justify-center"><h3>Hello Pear Fan !</h3></v-card-title>
                             </v-flex>                           
                         </v-layout>
                          <v-layout class="d-flex justify-center">
@@ -107,16 +107,25 @@
                             </v-layout>
                             
                             <v-layout class="my-9 d-flex justify-center">
-                                 <h4 class="subheading white--text"><v-icon color="teal">mdi-home</v-icon>Tramites seguros y rapidos</h4> 
-                                 <h4 class="subheading white--text"><v-icon color="teal">mdi-home</v-icon>Tramites seguros y rapidos</h4> 
+                                <v-flex md12>
+                                    <h4 class="subheading white--text"><v-icon color="teal">mdi-message-text-lock</v-icon>Tramites seguros y rapidos</h4> 
+                                </v-flex>
+
+                                <v-flex md12>
+                                    <h4 class="subheading white--text"><v-icon color="teal">mdi-home</v-icon>Desde la comodidad de tu casa !</h4> 
+                                </v-flex>
                             </v-layout>
 
                             <v-layout class="my-9 d-flex justify-center">
-                                 <h4 class="subheading white--text"><v-icon color="teal">mdi-home</v-icon>Tramites seguros y rapidos</h4> 
-                                 <h4 class="subheading white--text"><v-icon color="teal">mdi-home</v-icon>Tramites seguros y rapidos</h4> 
-                            </v-layout>
-                        </v-img>
-                       
+                                <v-flex md12>
+                                    <h4 class="subheading white--text"><v-icon color="teal">mdi-credit-card-remove-outline</v-icon>Sin tarjeta de credito</h4> 
+                                </v-flex>
+
+                                <v-flex md12>
+                                    <h4 class="subheading white--text"><v-icon color="teal">mdi-database-check</v-icon>Informacion actualizada !</h4> 
+                                </v-flex>
+                            </v-layout>                            
+                        </v-img>                      
 
                     </v-flex>
 
@@ -247,7 +256,7 @@ export default {
                 })
             }else{
                 this.loading = false 
-                this.errores = 'Por favor, rellenar los campos'
+                this.errores = 'Outch! Por favor, rellenar los campos'
             }
             
         }
