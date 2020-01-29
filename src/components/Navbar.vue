@@ -37,8 +37,12 @@
 
       <!-- Menu de opciones -->
       <v-toolbar-items class="hidden-sm-and-down navbar-list">
-        <v-btn to='/' text color="white" small>Vehiculos</v-btn>
-              
+        <v-btn to='/' text color="white" small>Vehiculos</v-btn>              
+                            
+      </v-toolbar-items>
+
+      <v-toolbar-items class="hidden-sm-and-down navbar-list">
+        <v-btn to='/nota' text color="white" small>Notas para el evaluador</v-btn>              
                             
       </v-toolbar-items>
 
@@ -86,23 +90,32 @@
 
             <v-list>
                 <v-list-item-group> 
-                    <v-list-item>
-                    <v-btn  to='/' text small>Vehiculos</v-btn>
+                    <v-list-item to='/'>
+                      Vehiculos
                     </v-list-item>  
 
 
                     <div v-if="user">
 
-                      <v-list-item>
-                        <v-btn depressed small text block to="/perfil"> <v-icon color="teal">mdi-account</v-icon>Perfil</v-btn>
+                      <v-list-item to="/perfil">
+                        Perfil
                       </v-list-item>                                  
 
 
-                      <v-list-item>
-                        <v-btn depressed small text block @click="logout"> <v-icon color="red">mdi-logout</v-icon>Cerrar sesion</v-btn>
+                      <v-list-item @click="logout">
+                        <span class="error--text">Cerrar sesion</span>
                       </v-list-item>     
 
-                    </div>                            
+                    </div>   
+
+                    <div v-else>
+                      <v-list-item to='/login'>
+                        Iniciar sesion
+                      </v-list-item>     
+
+                    </div>
+
+                                             
                 </v-list-item-group>                
             </v-list>
         </v-menu>   
