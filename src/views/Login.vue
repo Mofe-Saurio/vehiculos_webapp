@@ -209,7 +209,7 @@ export default {
                         nombre: this.Registro.name,
                         apellido: this.Registro.lastname, 
                         sexo:'',                       
-                        correo: this.Registro.email,
+                        correo: this.Registro.email.toLowerCase(),
                         telefono:''
 
                     }
